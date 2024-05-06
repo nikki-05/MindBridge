@@ -24,5 +24,6 @@ export const getCatalogPageData = async (categoryId) => {
     result = error.response?.data
   }
   toast.dismiss(toastId)
+  // console.log("services/operations/pageAndComponentDatas ----> ",result);
   return result
 }

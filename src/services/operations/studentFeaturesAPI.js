@@ -37,9 +37,9 @@ export async function BuyCourse(
 ) {
   const toastId = toast.loading("Loading...")
   try {
-    // Loading the script of Razorpay SDK
+    // Loading the script of Razorpay SDK  
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
-
+  
     if (!res) {
       toast.error(
         "Razorpay SDK failed to load. Check your Internet Connection."
@@ -60,6 +60,7 @@ export async function BuyCourse(
     )
 
     if (!orderResponse.data.success) {
+      // console.log("heelllo----")
       throw new Error(orderResponse.data.message)
     }
     console.log("PAYMENT RESPONSE FROM BACKEND............", orderResponse.data)

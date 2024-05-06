@@ -64,6 +64,7 @@ exports.capturePayment = async (req, res) => {
       data: paymentResponse,
     })
   } catch (error) {
+    console.log("heello---------");
     console.log(error)
     res
       .status(500)
