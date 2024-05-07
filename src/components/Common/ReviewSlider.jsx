@@ -37,7 +37,7 @@ function ReviewSlider() {
 
   return (
     <div className="text-white">
-      <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
+      <div className="my-[50px] h-[184px] min-w-64 max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
           slidesPerView={4}
           spaceBetween={25}
@@ -53,8 +53,8 @@ function ReviewSlider() {
           {reviews.map((review, i) => {
             return (
               <SwiperSlide key={i}>
-                <div className="flex flex-col gap-3 bg-richblack-800 p-3 text-[14px] text-richblack-25">
-                  <div className="flex items-center gap-4">
+                <div className="flex flex-col min-w-48 rounded-md gap-3 bg-richblack-800 p-2 text-[14px] text-richblack-25">
+                  <div className="flex flex-col items-center gap-4">
                     <img
                       src={
                         review?.user?.image
@@ -64,14 +64,14 @@ function ReviewSlider() {
                       alt=""
                       className="h-9 w-9 rounded-full object-cover"
                     />
-                    <div className="flex flex-col">
+                    <div className="flex flex-col align-items-center text-center">
                       <h1 className="font-semibold text-richblack-5">{`${review?.user?.firstName} ${review?.user?.lastName}`}</h1>
                       <h2 className="text-[12px] font-medium text-richblack-500">
                         {review?.course?.courseName}
                       </h2>
                     </div>
                   </div>
-                  <p className="font-medium text-richblack-25">
+                  <p className="font-medium text-richblack-25 text-center">
                     {review?.review.split(" ").length > truncateWords
                       ? `${review?.review
                           .split(" ")
@@ -79,7 +79,7 @@ function ReviewSlider() {
                           .join(" ")} ...`
                       : `${review?.review}`}
                   </p>
-                  <div className="flex items-center gap-2 ">
+                  <div className="flex flex-col items-center gap-2 ">
                     <h3 className="font-semibold text-yellow-100">
                       {review.rating.toFixed(1)}
                     </h3>

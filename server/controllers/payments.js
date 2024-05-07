@@ -52,13 +52,14 @@ exports.capturePayment = async (req, res) => {
   const options = {
     amount: total_amount * 100,
     currency: "INR",
-    receipt: Math.random(Date.now()).toString(),
+    receipt: Math.random(Date.now()).toString()
   }
 
   try {
     // Initiate the payment using Razorpay
+    console.log("before creating order ---------");
     const paymentResponse = await instance.orders.create(options)
-    console.log(paymentResponse)
+    // console.log(paymentResponse)
     res.json({
       success: true,
       data: paymentResponse,

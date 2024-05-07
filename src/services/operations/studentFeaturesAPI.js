@@ -60,12 +60,14 @@ export async function BuyCourse(
     )
 
     if (!orderResponse.data.success) {
-      // console.log("heelllo----")
+      console.log("heelllo----helllooo")
       throw new Error(orderResponse.data.message)
     }
     console.log("PAYMENT RESPONSE FROM BACKEND............", orderResponse.data)
 
     // Opening the Razorpay SDK
+    console.log("--------> ",orderResponse.data.data)
+
     const options = {
       key: process.env.RAZORPAY_KEY,
       currency: orderResponse.data.data.currency,
