@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:4000/api/v1"
+require("dotenv").config();
+
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:4000/api/v1"
 console.log(BASE_URL)
 // AUTH ENDPOINTS
 export const endpoints = {
