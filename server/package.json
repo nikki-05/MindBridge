@@ -11,7 +11,7 @@
 	"keywords": [
 		"studynotion-backend"
 	],
-	"author": "Saikat Mukherjee",
+	"author": "Harsh Goel",
 	"license": "ISC",
 	"dependencies": {
 		"bcrypt": "^5.1.1",

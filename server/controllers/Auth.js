@@ -189,7 +189,7 @@ exports.sendotp = async (req, res) => {
     // Find user with provided email
     const checkUserPresent = await User.findOne({ email })
     // to be used in case of signup
-    console.log("Usere------->", checkUserPresent)
+    console.log("User------->", checkUserPresent)
     // If user found with provided email
     if (checkUserPresent) {
       // Return 401 Unauthorized status code with error message
