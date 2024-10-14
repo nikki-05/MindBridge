@@ -34,6 +34,7 @@ import VerifyEmail from "./pages/VerifyEmail"
 import ViewCourse from "./pages/ViewCourse"
 import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
+import BrightHands from "./components/core/HomePage/BrightHands"
 
 function App() {
   const dispatch = useDispatch()
@@ -57,6 +58,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path="catalog/:catalogName" element={<Catalog />} />
+        <Route path="/brighthands" element={<BrightHands/>}/>
         {/* Open Route - for Only Non Logged in User */}
         <Route
           path="login"
@@ -109,6 +111,7 @@ function App() {
           {/* Route for all users */}
           <Route path="dashboard/my-profile" element={<MyProfile />} />
           <Route path="dashboard/Settings" element={<Settings />} />
+          
           {/* Route only for Instructors */}
           {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>

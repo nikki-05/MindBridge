@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useParams } from "react-router-dom"
+import { FaDiscord } from 'react-icons/fa';
 
 import CourseReviewModal from "../components/core/ViewCourse/CourseReviewModal"
 import VideoDetailsSidebar from "../components/core/ViewCourse/VideoDetailsSidebar"
@@ -41,8 +42,24 @@ export default function ViewCourse() {
         <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
           <div className="mx-6">
             <Outlet />
+          <div className="container flex flex-row ">
+            <h1>Join our Discord Community</h1>
+            <a 
+                href="https://discord.gg/66CNt5e32Y" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <FaDiscord className="discord-icon" />
+              </a>
+          </div>
           </div>
         </div>
+
+        {/* comments section below */}
+        {/* <div className="h-12 w-14">
+          <p className="text-richblack-5">hello hi there</p>
+        </div> */}
+
       </div>
       {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
     </>

@@ -3,7 +3,8 @@ import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { FaDiscord } from 'react-icons/fa';
 
 import ConfirmationModal from "../components/Common/ConfirmationModal"
 import Footer from "../components/Common/Footer"
@@ -15,6 +16,7 @@ import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
 import { BuyCourse } from "../services/operations/studentFeaturesAPI"
 import GetAvgRating from "../utils/avgRating"
 import Error from "./Error"
+import '../../src/discord.css';
 
 function CourseDetails() {
   const { user } = useSelector((state) => state.profile)
@@ -143,6 +145,9 @@ function CourseDetails() {
               className={`z-30 my-5 flex flex-col justify-center gap-4 py-5 text-lg text-richblack-5`}
             >
               <div>
+
+                
+
                 <p className="text-4xl font-bold text-richblack-5 sm:text-[42px]">
                   {courseName}
                 </p>

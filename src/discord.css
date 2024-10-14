@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+  margin-top: 5px;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px;
+  color: #DBDDEA;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.discord-icon {
+	margin : 0 20px 20px;
+  font-size: 60px;
+  color: #5865F2;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.discord-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.discord-icon:active {
+  transform: scale(1.1);
+}
