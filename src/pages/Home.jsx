@@ -14,10 +14,15 @@ import HighlightText from "../components/core/HomePage/HighlightText"
 import InstructorSection from "../components/core/HomePage/InstructorSection"
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection"
 import TimelineSection from "../components/core/HomePage/Timeline"
+import Bot from "../components/core/HomePage/Bot"
 
 function Home() {
   return (
     <div>
+      {/* adding medibot */}
+      <div>
+        <Bot/>
+      </div>
       {/* Section 1 */}
       <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 text-white">
         {/* Become a Instructor Button */}
@@ -32,16 +37,13 @@ function Home() {
 
         {/* Heading */}
         <div className="text-center text-4xl font-semibold">
-          Empower Your Future with
-          <HighlightText text={"Coding Skills"} />
+          Unlock Your Potential with
+          <HighlightText text={"Future-Ready Skills"} />
         </div>
 
         {/* Sub Heading */}
         <div className="-mt-3 w-[90%] text-center text-lg font-bold text-richblack-300">
-          With our online coding courses, you can learn at your own pace, from
-          anywhere in the world, and get access to a wealth of resources,
-          including hands-on projects, quizzes, and personalized feedback from
-          instructors.
+        Our online courses empower you to learn in-demand skills at your own pace, from anywhere in the world. Gain hands-on experience through interactive projects, quizzes, and receive personalized feedback from expert instructors, no matter your background or goals.
         </div>
 
         {/* CTA Buttons */}
@@ -73,12 +75,12 @@ function Home() {
             heading={
               <div className="text-4xl font-semibold">
                 Unlock your
-                <HighlightText text={"coding potential"} /> with our online
+                <HighlightText text={"Learning Potential"} /> with our online
                 courses.
               </div>
             }
             subheading={
-              "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
+              "Our courses are designed and taught by the experts who have years of experience in teaching and are passionate about sharing their knowledge with you."
             }
             ctabtn1={{
               btnText: "Try it Yourself",
@@ -91,7 +93,7 @@ function Home() {
               active: false,
             }}
             codeColor={"text-yellow-25"}
-            codeblock={`<!DOCTYPE html>\n <html lang="en">\n<head>\n<title>This is myPage</title>\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav> <a href="/one">One</a> <a href="/two">Two</a> <a href="/three">Three</a>\n</nav>\n</body>`}
+            codeblock={`How many moles of carbon dioxide (CO₂) are present in 44 grams of CO₂?\n  Write the molecular mass of CO₂.\nCO₂ = 12 (Carbon) + 2 × 16 (Oxygen) = 44 g/mol\nUse the formula for moles: Moles=(Given Mass/Molar Mass)\nSubstitute the values: Moles of CO2=(44g/(44g/mol))=1mol`}
             backgroundGradient={<div className="codeblock1 absolute"></div>}
           />
         </div>
@@ -103,11 +105,11 @@ function Home() {
             heading={
               <div className="w-[100%] text-4xl font-semibold lg:w-[50%]">
                 Start
-                <HighlightText text={"coding in seconds"} />
+                <HighlightText text={"Learning in seconds"} />
               </div>
             }
             subheading={
-              "Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."
+              "Go ahead, give it a try. Our hands-on learning environment means you'll be doing assignments from your very first lesson to get the more clarity of the topic."
             }
             ctabtn1={{
               btnText: "Continue Lesson",
@@ -158,7 +160,7 @@ function Home() {
             </div>
             <div className="flex flex-col items-start gap-10 lg:w-[40%]">
               <div className="text-[16px]">
-                The modern StudyNotion is the dictates its own terms. Today, to
+                The modern MindBridge is the dictates its own terms. Today, to
                 be a competitive specialist requires more than professional
                 skills.
               </div>
