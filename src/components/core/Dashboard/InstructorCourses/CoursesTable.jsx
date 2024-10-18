@@ -14,6 +14,7 @@ import { formatDate } from "../../../../services/formatDate"
 import {
   deleteCourse,
   fetchInstructorCourses,
+  scheduleMeeting,
 } from "../../../../services/operations/courseDetailsAPI"
 import { COURSE_STATUS } from "../../../../utils/constants"
 import ConfirmationModal from "../../../Common/ConfirmationModal"
@@ -40,7 +41,7 @@ export default function CoursesTable({ courses, setCourses }) {
   // console.log("All Course ", courses)
 
   return (
-    <>
+    <div>
       <Table className="rounded-xl border border-richblack-800 ">
         <Thead>
           <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-800 px-6 py-2">
@@ -73,11 +74,13 @@ export default function CoursesTable({ courses, setCourses }) {
                 className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
               >
                 <Td className="flex flex-1 gap-x-4">
-                  <img
+                  {/* <button onClick={e=>{scheduleMeeting({courseId: course._id},token)}}> */}
+                    <img
                     src={course?.thumbnail}
                     alt={course?.courseName}
                     className="h-[148px] w-[220px] rounded-lg object-cover"
                   />
+                  {/* </button> */}
                   <div className="flex flex-col justify-between">
                     <p className="text-lg font-semibold text-richblack-5">
                       {course.courseName}
@@ -155,6 +158,6 @@ export default function CoursesTable({ courses, setCourses }) {
         </Tbody>
       </Table>
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
-    </>
+    </div>
   )
 }

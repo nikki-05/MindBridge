@@ -81,6 +81,7 @@ function MediBot({ onClose }) {
         const input_prompt = `You are a friendly and knowledgeable medical assistant chatbot. Respond to the following message appropriately:
         ${userInput}`;
         const result = await chat.sendMessage(input_prompt);
+        console.log("bot result -> ",result);
         const botMessage = {
           text: result.response.text(),
           role: "bot",

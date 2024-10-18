@@ -22,6 +22,7 @@ const {
   GET_FULL_COURSE_DETAILS_AUTHENTICATED,
   CREATE_RATING_API,
   LECTURE_COMPLETION_API,
+  SCHEDULE_MEETING_API
 } = courseEndpoints
 
 export const getAllCourses = async () => {
@@ -100,6 +101,29 @@ export const addCourseDetails = async (data, token) => {
   } catch (error) {
     console.log("CREATE COURSE API ERROR............", error)
     toast.error(error.message)
+  }
+  toast.dismiss(toastId)
+  return result
+}
+
+//schedule a meeting
+export const scheduleMeeting = async (data,token)=>{
+  let result = null;
+  const toastId = toast.loading("Loading...");
+  try{
+    const response = await apiConnector("POST",SCHEDULE_MEETING_API,data,{
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    })
+    console.log("SCHEDULE MEETING API RESPONSE....", response)
+    if (!response?.data?.success) {
+      throw new Error("Could Not Schedule Meeting")
+    }
+    toast.success("Meeting has been scheduled")
+    result = response?.data?.data
+  }catch(err){
+    console.log("SCHEDULE MEETING API ERROR...");
+    toast.error(err.message);
   }
   toast.dismiss(toastId)
   return result

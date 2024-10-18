@@ -115,7 +115,8 @@ function Navbar() {
                       </div>
                     </div>
                   </>
-                ) : (
+                ): 
+                (
                   <Link to={link?.path}>
                     <p
                       className={`${

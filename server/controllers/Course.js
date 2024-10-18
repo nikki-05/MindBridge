@@ -6,6 +6,39 @@ const User = require("../models/User")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../models/CourseProgress")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
+const mailSender = require("../utils/mailSender");
+
+
+exports.ScheduleMeeting  = async(req,res)=>{
+	try{
+		const {courseId,time} = req.body;
+    console.log("body -> ",req.body?.data);
+		if(!courseId){
+			return res.status(404).json({
+				success: true,
+				message : "courseId is missing"
+			})
+		}
+		const courseDetails = await Course.findById(courseId).populate("studentsEnroled").exec();
+		console.log("courseDetails in schedule meeting section -> ",courseDetails);
+		const studentsEnrolled = courseDetails.studentsEnroled;
+
+		studentsEnrolled.map((student)=>{
+			mailSender(student.email,`Meeting Scheduled`,`Meeting has been scheduled for the course ${courseDetails.courseName} on ${time} and the joining link is given below: \n${link}`)
+		});
+		
+		return res.status.json({
+			success: true,
+			message: "successfully share the meeting details"
+		})
+	}catch(err){
+		return res.status(500).json({
+			success: true,
+			message: "Some error in scheduling the meeting."
+		})
+	}
+}
+
 // Function to create a new course
 exports.createCourse = async (req, res) => {
   try {
