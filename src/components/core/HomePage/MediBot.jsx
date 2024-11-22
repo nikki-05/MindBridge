@@ -8,7 +8,7 @@ function MediBot({ onClose }) {
   const [error, setError] = useState(null);
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const API_KEY = process.env.REACT_APP_API_KEY || "AIzaSyD3rjBGeXQ46HRn-IipJCEzwdwjjD9hFXg";
+  const API_KEY = process.env.REACT_APP_API_KEY
   console.log("API Key available:", !!API_KEY);
 
   const MODEL_NAME = 'gemini-1.0-pro-001';
