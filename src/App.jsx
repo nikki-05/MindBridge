@@ -34,7 +34,14 @@ import VerifyEmail from "./pages/VerifyEmail"
 import ViewCourse from "./pages/ViewCourse"
 import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
-import BrightHands from "./components/core/HomePage/BrightHands"
+
+//signmodel
+import Learn from './components/core/SignModel/component/Learn';
+import Translate from './components/core/SignModel/component/Translate';
+import Board from './components/core/SignModel/component/Board';
+import Alphabet from './components/core/SignModel/component/Alphabet';
+import Numbers from './components/core/SignModel/component/Numbers';
+import CommonPhrases from './components/core/SignModel/component/CommonPhrases';
 
 function App() {
   const dispatch = useDispatch()
@@ -49,6 +56,8 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+
+
   return (
     <div className="flex min-h-screen w-screen flex-col bg-richblack-900 font-inter">
       <Navbar />
@@ -58,7 +67,15 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route path="catalog/:catalogName" element={<Catalog />} />
-        <Route path="/brighthands" element={<BrightHands/>}/>
+
+        {/* signmodel routes for all */}
+        <Route path="/signmodel/translate" element={<Translate />} />
+        <Route path="/signmodel/learn" element={<Learn />} />
+        <Route path="/signmodel/whiteboard" element={<Board/>} />
+        <Route path="/signmodel/learn/alphabet" element={<Alphabet/>} />
+        <Route path="/signmodel/learn/numbers" element={<Numbers/>} />
+        <Route path="/signmodel/learn/commonphrases" element={<CommonPhrases/>} />
+
         {/* Open Route - for Only Non Logged in User */}
         <Route
           path="login"

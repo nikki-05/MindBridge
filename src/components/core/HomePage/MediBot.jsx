@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai"
 
 function MediBot({ onClose }) {
   const [messages, setMessages] = useState([]);
@@ -8,7 +8,7 @@ function MediBot({ onClose }) {
   const [error, setError] = useState(null);
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const API_KEY = process.env.REACT_APP_API_KEY || "AIzaSyBuuHw49NBL5pcY-Fr984x5ZYHx9Xoeq8U";
+  const API_KEY = process.env.REACT_APP_API_KEY || "AIzaSyD3rjBGeXQ46HRn-IipJCEzwdwjjD9hFXg";
   console.log("API Key available:", !!API_KEY);
 
   const MODEL_NAME = 'gemini-1.0-pro-001';
