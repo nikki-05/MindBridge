@@ -1,146 +1,212 @@
-import React, { useState, useRef, useEffect } from 'react'; 
-import '../component/whiteboard.css';
+import React, { useState } from 'react';
+import { Stage, Layer, Line, Rect, Circle, Text } from 'react-konva';
 
 const Whiteboard = () => {
-    const canvasRef = useRef(null);
-    const contextRef = useRef(null);
-    const [isDrawing, setIsDrawing] = useState(false);
     const [tool, setTool] = useState('pen');
     const [color, setColor] = useState('#000000');
     const [thickness, setThickness] = useState(5);
-    const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+    const [elements, setElements] = useState([]);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [currentElement, setCurrentElement] = useState(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight - 100;
-        const context = canvas.getContext('2d');
-        context.lineCap = 'round';
-        context.strokeStyle = color;
-        context.lineWidth = thickness;
-        contextRef.current = context;
-
-        const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight - 100;
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [color, thickness]);
-
-    const getCoordinates = (event) => {
-        const canvas = canvasRef.current;
-        const rect = canvas.getBoundingClientRect();
-        const scaleX = canvas.width / rect.width;
-        const scaleY = canvas.height / rect.height;
-        return {
-            x: (event.clientX - rect.left) * scaleX,
-            y: (event.clientY - rect.top) * scaleY
-        };
-    };
-
-    const startDrawing = ({ nativeEvent }) => {
-        const { x, y } = getCoordinates(nativeEvent);
-        contextRef.current.beginPath();
-        contextRef.current.moveTo(x, y);
+    const startDrawing = (event) => {
+        const pos = event.target.getStage().getPointerPosition();
         setIsDrawing(true);
-        setStartPos({ x, y });
+
+        if (tool === 'pen') {
+            const newLine = {
+                tool: 'pen',
+                points: [pos.x, pos.y],
+                stroke: color,
+                strokeWidth: thickness,
+            };
+            setCurrentElement(newLine);
+        } else if (tool === 'rectangle') {
+            const newRect = {
+                tool: 'rectangle',
+                x: pos.x,
+                y: pos.y,
+                width: 0,
+                height: 0,
+                stroke: color,
+                strokeWidth: thickness,
+            };
+            setCurrentElement(newRect);
+        } else if (tool === 'circle') {
+            const newCircle = {
+                tool: 'circle',
+                x: pos.x,
+                y: pos.y,
+                radius: 0,
+                stroke: color,
+                strokeWidth: thickness,
+            };
+            setCurrentElement(newCircle);
+        }
     };
 
     const draw = (event) => {
         if (!isDrawing) return;
-        const { x, y } = getCoordinates(event);
-        contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); // Clear canvas
 
-        // Redraw existing shapes if needed (not implemented here)
-        
-        if (tool === 'pen' || tool === 'eraser') {
-            contextRef.current.lineTo(x, y);
-            contextRef.current.stroke();
+        const pos = event.target.getStage().getPointerPosition();
+        if (tool === 'pen') {
+            const updatedLine = {
+                ...currentElement,
+                points: [...currentElement.points, pos.x, pos.y],
+            };
+            setCurrentElement(updatedLine);
         } else if (tool === 'rectangle') {
-            drawRectangle(contextRef.current, startPos.x, startPos.y, x, y);
+            const updatedRect = {
+                ...currentElement,
+                width: pos.x - currentElement.x,
+                height: pos.y - currentElement.y,
+            };
+            setCurrentElement(updatedRect);
         } else if (tool === 'circle') {
-            drawCircle(contextRef.current, startPos.x, startPos.y, x, y);
+            const radius = Math.sqrt(
+                Math.pow(pos.x - currentElement.x, 2) +
+                Math.pow(pos.y - currentElement.y, 2)
+            );
+            const updatedCircle = {
+                ...currentElement,
+                radius: radius,
+            };
+            setCurrentElement(updatedCircle);
         }
     };
 
-    const drawRectangle = (context, startX, startY, endX, endY) => {
-        context.beginPath();
-        context.rect(startX, startY, endX - startX, endY - startY);
-        context.stroke();
-    };
-
-    const drawCircle = (context, startX, startY, endX, endY) => {
-        const radius = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-        context.beginPath();
-        context.arc(startX, startY, radius, 0, 2 * Math.PI);
-        context.stroke();
-    };
-
     const stopDrawing = () => {
-        contextRef.current.closePath();
         setIsDrawing(false);
+        setElements([...elements, currentElement]);
+        setCurrentElement(null);
     };
 
     const clearCanvas = () => {
-        const canvas = canvasRef.current;
-        contextRef.current.clearRect(0, 0, canvas.width, canvas.height);
-    };
-
-    const changeColor = (newColor) => {
-        setColor(newColor);
-        contextRef.current.strokeStyle = newColor;
-    };
-
-    const changeTool = (newTool) => {
-        setTool(newTool);
-        contextRef.current.globalCompositeOperation = newTool === 'eraser' ? 'destination-out' : 'source-over';
-    };
-
-    const changeThickness = (newThickness) => {
-        setThickness(newThickness);
-        contextRef.current.lineWidth = newThickness;
+        setElements([]);
     };
 
     const addText = () => {
         const text = prompt('Enter text:');
         if (text) {
-            const { x, y } = startPos; // Use start position for text placement
-            contextRef.current.font = `${thickness * 2}px Arial`;
-            contextRef.current.fillStyle = color;
-            contextRef.current.fillText(text, x, y);
+            const newText = {
+                tool: 'text',
+                text: text,
+                x: 100,
+                y: 100,
+                fontSize: thickness * 4,
+                fill: color,
+            };
+            setElements([...elements, newText]);
         }
     };
 
     return (
-        <div className="whiteboard-container p-4">
-            <canvas
-                ref={canvasRef}
+        <div>
+            <Stage
+                width={window.innerWidth}
+                height={window.innerHeight - 200}
                 onMouseDown={startDrawing}
                 onMouseMove={draw}
                 onMouseUp={stopDrawing}
-                onMouseLeave={stopDrawing}
-            />
-            <div className="controls">
-                <button onClick={clearCanvas}>Clear</button>
-                <button onClick={() => changeTool('pen')}>Pen</button>
-                <button onClick={() => changeTool('eraser')}>Eraser</button>
-                <button onClick={() => changeTool('rectangle')}>Rectangle</button>
-                <button onClick={() => changeTool('circle')}>Circle</button>
-                <button onClick={addText}>Add Text</button>
+                style={{ border: '1px solid #ccc' }}
+            >
+                <Layer>
+                    {elements.map((element, i) => {
+                        if (element.tool === 'pen') {
+                            return (
+                                <Line
+                                    key={i}
+                                    points={element.points}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                    tension={0.5}
+                                    lineCap="round"
+                                />
+                            );
+                        } else if (element.tool === 'rectangle') {
+                            return (
+                                <Rect
+                                    key={i}
+                                    x={element.x}
+                                    y={element.y}
+                                    width={element.width}
+                                    height={element.height}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                />
+                            );
+                        } else if (element.tool === 'circle') {
+                            return (
+                                <Circle
+                                    key={i}
+                                    x={element.x}
+                                    y={element.y}
+                                    radius={element.radius}
+                                    stroke={element.stroke}
+                                    strokeWidth={element.strokeWidth}
+                                />
+                            );
+                        } else if (element.tool === 'text') {
+                            return (
+                                <Text
+                                    key={i}
+                                    text={element.text}
+                                    x={element.x}
+                                    y={element.y}
+                                    fontSize={element.fontSize}
+                                    fill={element.fill}
+                                />
+                            );
+                        }
+                        return null;
+                    })}
+                    {currentElement &&
+                        (currentElement.tool === 'pen' ? (
+                            <Line
+                                points={currentElement.points}
+                                stroke={currentElement.stroke}
+                                strokeWidth={currentElement.strokeWidth}
+                                tension={0.5}
+                                lineCap="round"
+                            />
+                        ) : currentElement.tool === 'rectangle' ? (
+                            <Rect
+                                x={currentElement.x}
+                                y={currentElement.y}
+                                width={currentElement.width}
+                                height={currentElement.height}
+                                stroke={currentElement.stroke}
+                                strokeWidth={currentElement.strokeWidth}
+                            />
+                        ) : currentElement.tool === 'circle' ? (
+                            <Circle
+                                x={currentElement.x}
+                                y={currentElement.y}
+                                radius={currentElement.radius}
+                                stroke={currentElement.stroke}
+                                strokeWidth={currentElement.strokeWidth}
+                            />
+                        ) : null)}
+                </Layer>
+            </Stage>
+            <div style={{marginTop: '10px'}}>
+                <button style={{margin: '8px', padding: '2px'}} onClick={clearCanvas}>Clear</button>
+                <button style={{margin: '8px', padding: '2px'}} onClick={() => setTool('pen')}>Pen</button>
+                <button style={{margin: '8px', padding: '2px'}} onClick={() => setTool('rectangle')}>Rectangle</button>
+                <button style={{margin: '8px', padding: '2px'}} onClick={() => setTool('circle')}>Circle</button>
                 <input
                     type="color"
                     value={color}
-                    onChange={(e) => changeColor(e.target.value)}
+                    onChange={(e) => setColor(e.target.value)}
                 />
                 <input
                     type="range"
                     min="1"
                     max="20"
                     value={thickness}
-                    onChange={(e) => changeThickness(parseInt(e.target.value))}
+                    onChange={(e) => setThickness(parseInt(e.target.value))}
                 />
+                <button onClick={addText}>Add Text</button>
             </div>
         </div>
     );

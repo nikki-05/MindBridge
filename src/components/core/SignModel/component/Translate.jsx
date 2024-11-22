@@ -37,28 +37,28 @@ function Translate() {
 
   const [currentModel, setCurrentModel] = useState(null);
 
-  useEffect(() => {
-    if (showModal) {
-      loadScripts();
-    }
-  }, [showModal]);
+  // useEffect(() => {
+  //   if (showModal) {
+  //     loadScripts();
+  //   }
+  // }, [showModal]);
 
-  const loadScripts = async () => {
-    setIsLoading(true);
-    setLoadingStatus('Loading TensorFlow.js...');
-    try {
-      await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js');
-      setLoadingStatus('Loading Teachable Machine...');
-      await loadScript('https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js');
-      setLoadingStatus('Scripts loaded. Ready to start.');
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error loading scripts:", error);
-      setLoadingStatus('Error loading scripts. Please try again.');
-      setError('Failed to load required scripts. Please refresh the page and try again.');
-      setIsLoading(false);
-    }
-  };
+  // const loadScripts = async () => {
+  //   setIsLoading(true);
+  //   setLoadingStatus('Loading TensorFlow.js...');
+  //   try {
+  //     await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js');
+  //     setLoadingStatus('Loading Teachable Machine...');
+  //     await loadScript('https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js');
+  //     setLoadingStatus('Scripts loaded. Ready to start.');
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.error("Error loading scripts:", error);
+  //     setLoadingStatus('Error loading scripts. Please try again.');
+  //     setError('Failed to load required scripts. Please refresh the page and try again.');
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const loadScript = (src) => {
     return new Promise((resolve, reject) => {
@@ -454,8 +454,8 @@ function Translate() {
             <div>
               <div id="number-webcam-container"></div>
               <div id="number-label-container"></div>
-              <div id="number-prediction-output"></div>
-              <div id="number-final-result"></div>
+              <div id="number-prediction-output" className='text-white'></div>
+              <div id="number-final-result" className='text-white'></div>
             </div>
            
           </div>
