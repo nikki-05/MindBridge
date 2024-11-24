@@ -28,8 +28,10 @@ Enhances two-way communication by converting sign language into text.
 --A whiteboard Application that can be helpful for kids
 
 
-Technical Highlights
-Frontend: Built using React.js for a seamless and responsive user interface.
-Backend: Powered by Node.js, with APIs for real-time interactions and analytics.
-Chatbot Integration: Leveraging advanced NLP models to provide intelligent and empathetic responses.
-Sign Language Tools: Implemented using AI for accurate sign language interpretation and translation.
+## Technical Highlights
+-Frontend: Built using React.js for a seamless and responsive user interface.
+-Backend: Powered by Node.js, with APIs for real-time interactions and analytics.
+-Chatbot Integration: Leveraging advanced NLP models to provide intelligent and empathetic responses.
+-Sign Language Tools: Implemented using AI for accurate sign language interpretation and translation.
+-Google APIs
+
